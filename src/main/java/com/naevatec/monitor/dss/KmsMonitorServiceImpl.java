@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.naevatec.monitor.bean.KmsSgaMember;
+import com.naevatec.monitor.bean.Sga;
+import com.naevatec.monitor.bean.SgaImpl;
 import com.naevatec.monitor.bean.SgaMember;
 import com.naevatec.monitor.bean.StatusCode;
 
@@ -38,6 +40,15 @@ public class KmsMonitorServiceImpl extends MonitorServiceImpl implements
 		m1.setUsage(9.90);
 		members.add(m1);
 		return members;
+	}
+
+	@Override
+	public Sga getSga() {
+		Sga sga = new SgaImpl();
+		sga.setMembers(getMembers());
+		sga.setStatus(getKmsStatus());
+		sga.setTimestamp(getTimestamp());
+		return sga;
 	}
 
 }

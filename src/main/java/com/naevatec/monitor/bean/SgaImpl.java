@@ -2,28 +2,14 @@ package com.naevatec.monitor.bean;
 
 import java.util.List;
 
-public abstract class SgaImpl implements Sga {
+import com.google.gson.Gson;
+
+public class SgaImpl implements Sga {
 	private static final long serialVersionUID = 1L;
 
-	private SgaType name;
 	private StatusCode status;
 	private String timestamp;
 	private List<? extends SgaMember> members;
-
-	public SgaImpl() {
-		identify();
-	}
-
-	abstract void identify();
-
-	final void setName(SgaType name) {
-		this.name = name;
-	}
-
-	@Override
-	public SgaType getName() {
-		return this.name;
-	}
 
 	@Override
 	public StatusCode getStatus() {
@@ -53,5 +39,10 @@ public abstract class SgaImpl implements Sga {
 	@Override
 	public void setMembers(List<? extends SgaMember> members) {
 		this.members = members;
+	}
+
+	@Override
+	public String toString() {
+		return new Gson().toJson(this);
 	}
 }

@@ -2,6 +2,8 @@ package com.naevatec.monitor.bean;
 
 import java.io.Serializable;
 
+import com.google.gson.Gson;
+
 public class SgaMember implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -40,5 +42,10 @@ public class SgaMember implements Serializable {
 
 	public void setMemory(Integer memory) {
 		this.memory = memory;
+	}
+
+	@Override
+	public String toString() {
+		return new Gson().toJson(this);
 	}
 }

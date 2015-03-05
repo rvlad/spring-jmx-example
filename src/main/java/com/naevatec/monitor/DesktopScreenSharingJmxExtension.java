@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jmx.export.annotation.ManagedAttribute;
 import org.springframework.jmx.export.annotation.ManagedOperation;
 import org.springframework.jmx.export.annotation.ManagedOperationParameter;
 import org.springframework.jmx.export.annotation.ManagedResource;
@@ -146,5 +147,65 @@ public class DesktopScreenSharingJmxExtension implements
 			throw new RuntimeException("Unsupported SGA type: " + type);
 		}
 		return members;
+	}
+
+	@ManagedAttribute(description = "Sgas.")
+	public String getSgasString() {
+		try {
+			return buildSgas().toString();
+		} catch (Exception e) {
+		}
+		return null;
+	}
+
+	@ManagedOperation(description = "Sga by name.")
+	public String findSgaByNameString(String type) {
+		SgaType sType = SgaType.findByName(type);
+		switch (sType) {
+		case DSS:
+			return dssMonitorService.getSga().toString();
+		case KMS:
+			return kmsMonitorService.getSga().toString();
+		case WOWZA:
+			// TODO implement
+		default:
+			throw new RuntimeException("Unsupported SGA type: " + type);
+		}
+	}
+
+	@ManagedOperation(description = "Sga members list by name.")
+	public String findSgaMemberListByNameString(String type) {
+		SgaType sType = SgaType.findByName(type);
+		switch (sType) {
+		case DSS:
+			return dssMonitorService.getMembers().toString();
+		case KMS:
+			return kmsMonitorService.getMembers().toString();
+		case WOWZA:
+			// TODO implement
+		default:
+			throw new RuntimeException("Unsupported SGA type: " + type);
+		}
+	}
+
+	@ManagedOperation(description = "Sga member by sga-name and member image-id.")
+	public String findSgaMemberByNameAndImageIdString(String type,
+			String imageId) {
+		try {
+			List<? extends SgaMember> members = getSgaMembersByType(type);
+			for (SgaMember s : members)
+				if (s.getImageId().equalsIgnoreCase(imageId))
+					return s.toString();
+		} catch (Exception e) {
+		}
+		return null;
+	}
+
+	private SgaAggregate buildSgas() {
+		SgaAggregate sgasAgg = new SgaAggregate();
+		sgasAgg.setDss(dssMonitorService.getSga());
+		sgasAgg.setKms(kmsMonitorService.getSga());
+		// TODO Wowza
+		return sgasAgg;
 	}
 }

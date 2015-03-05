@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.naevatec.monitor.bean.DssSgaMember;
+import com.naevatec.monitor.bean.Sga;
+import com.naevatec.monitor.bean.SgaImpl;
 import com.naevatec.monitor.bean.SgaMember;
 import com.naevatec.monitor.bean.StatusCode;
 
@@ -36,6 +38,15 @@ public class DssMonitorServiceImpl extends MonitorServiceImpl implements
 		m1.setStatus(StatusCode.FAIL);
 		members.add(m1);
 		return members;
+	}
+
+	@Override
+	public Sga getSga() {
+		Sga sga = new SgaImpl();
+		sga.setMembers(getMembers());
+		sga.setStatus(getDssStatus());
+		sga.setTimestamp(getTimestamp());
+		return sga;
 	}
 
 }

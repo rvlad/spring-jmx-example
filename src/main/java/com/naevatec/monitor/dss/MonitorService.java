@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.naevatec.monitor.bean.Sga;
 import com.naevatec.monitor.bean.SgaMember;
 import com.naevatec.monitor.bean.StatusCode;
 
@@ -15,4 +16,6 @@ public interface MonitorService {
 	StatusCode getStatus();
 
 	List<? extends SgaMember> getMembers();
+
+	Sga getSga();
 }
