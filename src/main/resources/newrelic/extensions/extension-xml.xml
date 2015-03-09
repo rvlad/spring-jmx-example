@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is an example of a custom instrumentation extension XML file. -->
+
+<extension xmlns="https://newrelic.com/docs/java/xsd/v1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="newrelic-extension extension.xsd " name="extension-example"
+	version="1.0" enabled="true">
+	<instrumentation>
+		<pointcut transactionStartPoint="true"
+			excludeFromTransactionTrace="false" ignoreTransaction="false">
+<!--			<className>com.clearslide.desktopsharing.server.monitoring.NewRelicXmlMonitor</className>-->
+			<className>com.naevatec.monitoring.NewRelicXmlMonitor</className>
+			<method>
+				<name>xmlSessions</name>
+				<parameters/>
+			</method>
+			<method>
+				<name>xmlSessionName2</name>
+				<parameters>
+					<type>java.lang.String</type>
+				</parameters>
+			</method>
+			<method>
+				<name>xmlSessionsCount</name>
+				<parameters>
+					<type>int</type>
+				</parameters>
+			</method>
+			<method>
+				<name>xmlSessionDss</name>
+				<parameters>
+					<type>int</type>
+				</parameters>
+			</method>
+			<method>
+				<name>xmlTimeInMilis</name>
+				<parameters>
+					<type>long</type>
+				</parameters>
+			</method>
+			<method>
+				<name>xmlSessionDssDouble</name>
+				<parameters>
+					<type>double</type>
+				</parameters>
+			</method>
+		</pointcut>
+	</instrumentation>
+</extension>

@@ -201,6 +201,14 @@ public class DesktopScreenSharingJmxExtension implements
 		return null;
 	}
 
+	// // Implementation for NewRelic integration
+	// // @ManagedOperation(description = "Sga members count.")
+	// @Trace(metricName = "SessionsCount", dispatcher = true, nameTransaction)
+	// public Integer countSessions() {
+	// return 5000;
+	// }
+
+
 	private SgaAggregate buildSgas() {
 		SgaAggregate sgasAgg = new SgaAggregate();
 		sgasAgg.setDss(dssMonitorService.getSga());
